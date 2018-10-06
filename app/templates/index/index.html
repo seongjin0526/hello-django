@@ -1,0 +1,40 @@
+<%inherit file="../common/main_base.html"/>
+
+<%block name="css">
+
+</%block>
+
+<%block name="content">
+<h3>Hello Contemt</h3>
+
+<h3>${email}</h3>
+
+
+<button type="button" class="btn btn-primary" onclick="logout()">Logout</button>
+
+</%block>
+
+<%block name="js">
+
+<script>
+    function logout(){
+        var csrf_token = $('.csrf_token').html();
+
+        $.post( "/api_logout",
+        { csrfmiddlewaretoken: csrf_token })
+        .done(function( data ) {
+        if(data.result == "success"){
+            window.location.href = "/login";
+
+        }
+        else{
+            alert("Error");
+        }
+    });
+
+    }
+
+</script>
+
+
+</%block>
